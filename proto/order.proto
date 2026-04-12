@@ -4,8 +4,7 @@ package order;
 
 option go_package = "github.com/dannieey/assignment2-generated/order";
 
-import "google.protobuf/timestamp.proto";
-
+import "google/protobuf/timestamp.proto";
 service OrderService {
     rpc SubscribeToOrderUpdates(OrderSubscriptionRequest) returns (stream OrderStatusUpdate);
 }
