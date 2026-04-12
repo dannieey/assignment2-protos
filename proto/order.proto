@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package order;
+
+option go_package = "github.com/dannieey/assignment2-generated/order";
+
+service OrderService {
+  // Server-side streaming для отслеживания статуса
+  rpc SubscribeToOrderUpdates(OrderRequest) returns (stream OrderStatusUpdate);
+}
+
+message OrderRequest {
+  string order_id = 1;
+}
+
+message OrderStatusUpdate {
+  string order_id = 1;
+  string status = 2;
+  string message = 3;
+}
