@@ -1,20 +1,30 @@
 syntax = "proto3";
 
-package order;
+package payment;
 
-option go_package = "github.com/dannieey/assignment2-generated/order";
+option go_package = "github.com/dannieey/assignment2-generated/payment";
 
 import "google/protobuf/timestamp.proto";
-service OrderService {
-    rpc SubscribeToOrderUpdates(OrderSubscriptionRequest) returns (stream OrderStatusUpdate);
+
+service PaymentService {
+    rpc ProcessPayment (PaymentRequest) returns (PaymentResponse);
+    rpc GetPaymentStats (PaymentStatsRequest) returns (PaymentStatsResponse);
 }
 
-message OrderSubscriptionRequest {
+message PaymentRequest {
     string order_id = 1;
+    double amount = 2;
 }
 
-message OrderStatusUpdate {
-    string order_id = 1;
+message PaymentResponse {
+    string transaction_id = 1;
     string status = 2;
-    google.protobuf.Timestamp updated_at = 3; 
+    google.protobuf.Timestamp created_at = 3;
+}
+
+message PaymentStatsRequest {}
+
+message PaymentStatsResponse {
+    int32 total_count = 1;
+    map<string, int32> status_counts = 2;
 }
