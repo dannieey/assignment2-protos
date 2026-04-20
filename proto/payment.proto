@@ -8,6 +8,8 @@ import "google/protobuf/timestamp.proto";
 
 service PaymentService {
   rpc ProcessPayment (PaymentRequest) returns (PaymentResponse);
+
+  rpc GetPaymentStats (PaymentStatsRequest) returns (PaymentStatsResponse);
 }
 
 message PaymentRequest {
@@ -19,4 +21,11 @@ message PaymentResponse {
   string transaction_id = 1;
   string status = 2;
   google.protobuf.Timestamp created_at = 3;
+}
+
+message PaymentStatsRequest {}
+
+message PaymentStatsResponse {
+  int32 total_count = 1;
+  map<string, int32> status_counts = 2;
 }
